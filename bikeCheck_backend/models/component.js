@@ -29,6 +29,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Component.init({
+    component_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      unique: true,
+      primaryKey: true,
+    },
     name: DataTypes.STRING(40),
     type: DataTypes.STRING(40),
     usage: DataTypes.DECIMAL,

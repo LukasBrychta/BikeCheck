@@ -20,6 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
+    user_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      unique: true,
+      primaryKey: true,
+    },
     strava_id: DataTypes.INTEGER,
     username: DataTypes.STRING(40),
     email: DataTypes.STRING(40)

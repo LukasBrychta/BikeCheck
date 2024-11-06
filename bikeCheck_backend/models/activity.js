@@ -20,6 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Activity.init({
+    activity_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      unique: true,
+      primaryKey: true,
+    },
     distance: DataTypes.DECIMAL,
     duration: DataTypes.DECIMAL,
     bike_id: DataTypes.INTEGER

@@ -23,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Bike.init({
+    bike_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      unique: true,
+      primaryKey: true,
+    },
     name: DataTypes.STRING(40),
     user_id: DataTypes.INTEGER
   }, {

@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Service_Interval.init({
+    service_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      unique: true,
+      primaryKey: true,
+    },
     last_service: DataTypes.DATE,
     next_service: DataTypes.DATE
   }, {
