@@ -13,18 +13,26 @@ module.exports = (sequelize, DataTypes) => {
       Component.belongsToMany(models.User, {
         through: 'Stored_Components',
         foreignKey: 'component_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       });
       Component.belongsToMany(models.Bike, {
         through: 'Bikes_Components',
         foreignKey: 'component_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       });
       Component.belongsToMany(models.Activity, {
         through: 'Components_Activities',
         foreignKey: 'component_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       });
       Component.belongsToMany(models.Service_Interval, {
         through: 'Components_Services',
         foreignKey: 'component_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       });
     }
   }
@@ -32,8 +40,9 @@ module.exports = (sequelize, DataTypes) => {
     component_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      unique: true,
+      allowNull: false,
       primaryKey: true,
+      unique: true,
     },
     name: DataTypes.STRING(40),
     type: DataTypes.STRING(40),

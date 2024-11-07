@@ -12,10 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasMany(models.Bike, {
         foreignKey: 'user_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       });
       User.belongsToMany(models.Component, {
         through: 'Stored_Components',
         foreignKey: 'user_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       });
     }
   }
@@ -23,8 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      unique: true,
+      allowNull: false,
       primaryKey: true,
+      unique: true,
     },
     strava_id: DataTypes.INTEGER,
     username: DataTypes.STRING(40),

@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Service_Interval.belongsToMany(models.Component, {
         through: 'Components_Services',
         foreignKey: 'service_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       });
     }
   }
@@ -20,8 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     service_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      unique: true,
+      allowNull: false,
       primaryKey: true,
+      unique: true,
     },
     last_service: DataTypes.DATE,
     next_service: DataTypes.DATE

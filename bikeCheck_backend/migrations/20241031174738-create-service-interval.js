@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Service_Intervals', {
-      id: {
+      service_id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,

@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Activities', {
-      id: {
+      activity_id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Bikes',
-          key: 'id',
+          key: 'bike_id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
