@@ -8,3 +8,4 @@ router.put('/users/:user_id', users_controller.updateUser);
 router.delete('/users/:user_id', users_controller.deleteUser);
 
 module.exports = users_router;
+

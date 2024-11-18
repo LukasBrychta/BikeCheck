@@ -31,7 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       unique: true,
     },
-    strava_id: DataTypes.INTEGER,
+    strava_id: {
+      type: DataTypes.INTEGER,
+      unique: true,
+      allowNull: false,
+    },
     username: DataTypes.STRING(40),
     email: DataTypes.STRING(40)
   }, {
