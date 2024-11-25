@@ -10,6 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       last_service: {
+        allowNull: true,
+        defaultValue: null,
         type: Sequelize.DATE
       },
       next_service: {

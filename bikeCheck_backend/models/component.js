@@ -1,4 +1,8 @@
 'use strict';
+const Stored_Component = require('./stored_component');
+const Bikes_Component = require('./bikes_component');
+const Components_Activity = require('./components_activity');
+const Components_Service = require('./components_service');
 const {
   Model
 } = require('sequelize');
@@ -11,43 +15,42 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Component.belongsToMany(models.User, {
-        through: 'Stored_Components',
-        foreignKey: 'component_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        through: Stored_Component,
       });
       Component.belongsToMany(models.Bike, {
-        through: 'Bikes_Components',
-        foreignKey: 'component_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        through: Bikes_Component,
       });
       Component.belongsToMany(models.Activity, {
-        through: 'Components_Activities',
-        foreignKey: 'component_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        through: Components_Activity,
       });
       Component.belongsToMany(models.Service_Interval, {
-        through: 'Components_Services',
-        foreignKey: 'component_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        through: Components_Service,
       });
     }
   }
   Component.init({
     component_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
-      unique: true,
+      type: DataTypes.INTEGER
     },
-    name: DataTypes.STRING(40),
-    type: DataTypes.STRING(40),
-    usage: DataTypes.DECIMAL,
-    lifespan: DataTypes.DECIMAL
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(40)
+    },
+    type: {
+      allowNull: false,
+      type: DataTypes.STRING(40)
+    },
+    usage: {
+      allowNull: false,
+      type: DataTypes.DECIMAL
+    },
+    lifespan: {
+      allowNull: false,
+      type: DataTypes.DECIMAL
+    },
   }, {
     sequelize,
     modelName: 'Component',

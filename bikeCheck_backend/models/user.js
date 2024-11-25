@@ -1,4 +1,5 @@
 'use strict';
+const Stored_Component = require('./stored_component');
 const {
   Model
 } = require('sequelize');
@@ -16,28 +17,31 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       });
       User.belongsToMany(models.Component, {
-        through: 'Stored_Components',
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        through: Stored_Component,
       });
     }
   }
   User.init({
     user_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
-      unique: true,
+      type: DataTypes.INTEGER
     },
     strava_id: {
-      type: DataTypes.INTEGER,
-      unique: true,
       allowNull: false,
+      unique: true,
+      type: DataTypes.INTEGER
     },
-    username: DataTypes.STRING(40),
-    email: DataTypes.STRING(40)
+    username: {
+      allowNull: false,
+      type: DataTypes.STRING(40)
+    },
+    email: {
+      allowNull: false,
+      unique: true,
+      type: DataTypes.STRING(40)
+    },
   }, {
     sequelize,
     modelName: 'User',

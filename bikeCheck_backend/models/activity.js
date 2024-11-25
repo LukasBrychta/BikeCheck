@@ -1,4 +1,5 @@
 'use strict';
+const Components_Activity = require('./components_activity');
 const {
   Model
 } = require('sequelize');
@@ -16,24 +17,35 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       });
       Activity.belongsToMany(models.Component, {
-        through: 'Components_Activities',
-        foreignKey: 'activity_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        through: Components_Activity,
       });
     }
   }
   Activity.init({
     activity_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
-      unique: true,
+      type: DataTypes.INTEGER
     },
-    distance: DataTypes.DECIMAL,
-    duration: DataTypes.DECIMAL,
-    bike_id: DataTypes.INTEGER
+    distance: {
+      allowNull: false,
+      type: DataTypes.DECIMAL
+    },
+    duration: {
+      allowNull: false,
+      type: DataTypes.DECIMAL
+    },
+    bike_id: {
+      allowNull: false,
+      references: {
+        model: 'Bikes',
+        key: 'bike_id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+      type: DataTypes.INTEGER
+    },
   }, {
     sequelize,
     modelName: 'Activity',

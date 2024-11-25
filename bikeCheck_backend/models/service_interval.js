@@ -1,4 +1,5 @@
 'use strict';
+const Components_Service = require('./components_service');
 const {
   Model
 } = require('sequelize');
@@ -11,23 +12,26 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Service_Interval.belongsToMany(models.Component, {
-        through: 'Components_Services',
-        foreignKey: 'service_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        through: Components_Service,
       });
     }
   }
   Service_Interval.init({
     service_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
-      unique: true,
+      type: DataTypes.INTEGER
     },
-    last_service: DataTypes.DATE,
-    next_service: DataTypes.DATE
+    last_service: {
+      allowNull: true,
+      defaultValue: null,
+      type: DataTypes.DATE
+    },
+    next_service: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
   }, {
     sequelize,
     modelName: 'Service_Interval',

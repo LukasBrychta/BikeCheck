@@ -1,4 +1,5 @@
 'use strict';
+const Bikes_Component = require ('./bikes_component');
 const {
   Model
 } = require('sequelize');
@@ -21,23 +22,31 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       });
       Bike.belongsToMany(models.Component, {
-        through: 'Bikes_Components',
-        foreignKey: 'bike_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        through: Bikes_Component,
       });
     }
   }
   Bike.init({
     bike_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
-      unique: true,
+      type: DataTypes.INTEGER
     },
-    name: DataTypes.STRING(40),
-    user_id: DataTypes.INTEGER
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(40)
+    },
+    user_id: {
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'user_id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+      type: DataTypes.INTEGER,
+    },
   }, {
     sequelize,
     modelName: 'Bike',

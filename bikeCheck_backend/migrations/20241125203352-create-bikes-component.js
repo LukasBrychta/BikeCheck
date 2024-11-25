@@ -2,22 +2,22 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Bikes', {
+    await queryInterface.createTable('Bikes_Components', {
       bike_id: {
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        references: {
+          model: 'Bike',
+          key: 'bike_id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: Sequelize.INTEGER,
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING(40)
-      },
-      user_id: {
+      component_id: {
         allowNull: false,
         references: {
-          model: 'User',
-          key: 'user_id',
+          model: 'Component',
+          key: 'component_id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Bikes');
+    await queryInterface.dropTable('Bikes_Components');
   }
 };
