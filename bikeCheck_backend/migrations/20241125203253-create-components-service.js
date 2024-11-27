@@ -6,7 +6,7 @@ module.exports = {
       component_id: {
         allowNull: false,
         references: {
-          model: 'Component',
+          model: 'Components',
           key: 'component_id',
         },
         onUpdate: 'CASCADE',
@@ -16,7 +16,7 @@ module.exports = {
       service_id: {
         allowNull: false,
         references: {
-          model: 'Service_Interval',
+          model: 'Service_Intervals',
           key: 'service_id',
         },
         onUpdate: 'CASCADE',

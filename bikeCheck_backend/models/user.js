@@ -1,5 +1,4 @@
 'use strict';
-const Stored_Component = require('./stored_component');
 const {
   Model
 } = require('sequelize');
@@ -17,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       });
       User.belongsToMany(models.Component, {
-        through: Stored_Component,
+        through: models.Stored_Component,
       });
     }
   }

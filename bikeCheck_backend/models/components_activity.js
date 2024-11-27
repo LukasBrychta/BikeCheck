@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     component_id: {
       allowNull: false,
       references: {
-        model: 'Component',
+        model: 'Components',
         key: 'component_id',
       },
       onUpdate: 'CASCADE',
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     activity_id: {
       allowNull: false,
       references: {
-        model: 'Activity',
+        model: 'Activities',
         key: 'activity_id',
       },
       onUpdate: 'CASCADE',

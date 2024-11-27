@@ -1,5 +1,4 @@
 'use strict';
-const Components_Service = require('./components_service');
 const {
   Model
 } = require('sequelize');
@@ -12,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Service_Interval.belongsToMany(models.Component, {
-        through: Components_Service,
+        through: models.Components_Service,
       });
     }
   }

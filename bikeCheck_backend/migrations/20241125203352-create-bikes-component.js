@@ -6,7 +6,7 @@ module.exports = {
       bike_id: {
         allowNull: false,
         references: {
-          model: 'Bike',
+          model: 'Bikes',
           key: 'bike_id',
         },
         onUpdate: 'CASCADE',
@@ -16,7 +16,7 @@ module.exports = {
       component_id: {
         allowNull: false,
         references: {
-          model: 'Component',
+          model: 'Components',
           key: 'component_id',
         },
         onUpdate: 'CASCADE',

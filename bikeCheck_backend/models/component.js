@@ -1,8 +1,4 @@
 'use strict';
-const Stored_Component = require('./stored_component');
-const Bikes_Component = require('./bikes_component');
-const Components_Activity = require('./components_activity');
-const Components_Service = require('./components_service');
 const {
   Model
 } = require('sequelize');
@@ -15,16 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Component.belongsToMany(models.User, {
-        through: Stored_Component,
+        through: models.Stored_Component,
       });
       Component.belongsToMany(models.Bike, {
-        through: Bikes_Component,
+        through: models.Bikes_Component,
       });
       Component.belongsToMany(models.Activity, {
-        through: Components_Activity,
+        through: models.Components_Activity,
       });
       Component.belongsToMany(models.Service_Interval, {
-        through: Components_Service,
+        through: models.Components_Service,
       });
     }
   }

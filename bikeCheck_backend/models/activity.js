@@ -1,5 +1,4 @@
 'use strict';
-const Components_Activity = require('./components_activity');
 const {
   Model
 } = require('sequelize');
@@ -17,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       });
       Activity.belongsToMany(models.Component, {
-        through: Components_Activity,
+        through: models.Components_Activity,
       });
     }
   }

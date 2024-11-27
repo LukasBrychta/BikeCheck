@@ -1,5 +1,4 @@
 'use strict';
-const Bikes_Component = require ('./bikes_component');
 const {
   Model
 } = require('sequelize');
@@ -22,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
       });
       Bike.belongsToMany(models.Component, {
-        through: Bikes_Component,
+        through: models.Bikes_Component,
       });
     }
   }
