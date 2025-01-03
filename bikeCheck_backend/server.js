@@ -3,9 +3,26 @@ const express = require('express');
 const bodyParser = require("body-parser");
 
 const app = express();
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+
+const usersRoutes = require('./routes/users');
+const bikesRoutes = require('./routes/bikes');
+const componentsRoutes = require('./routes/components');
+const activitiesRoutes = require('./routes/activities');
+const serviceRoutes = require('./routes/service_intervals');
+
+app.use('/users', usersRoutes);
+app.use('/bikes', bikesRoutes);
+app.use('/components', componentsRoutes);
+app.use('/activities', activitiesRoutes);
+app.use('/service', serviceRoutes);
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the API!');
+});
 
 db.sequelize.authenticate()
     .then(() => {
@@ -23,4 +40,6 @@ db.sequelize.sync()
         console.error('Error syncing database: ', err);
     });
 
-app.get("/")
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`)
+});

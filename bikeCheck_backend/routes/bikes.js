@@ -1,11 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const bikes_router = express.Router();
 const bikes_controller = require('../controllers/bikes_controller');
 
-router.get('/users/:user_id/bikes', bikes_controller.getBikes);
-router.post('/users/:user_id/bikes', bikes_controller.createBike);
-router.get('/users/:user_id/bikes/:bike_id', bikes_controller.getBikeById);
-router.put('/users/:user_id/bikes/:bike_id', bikes_controller.updateBike);
-router.delete('/users/:user_id/bikes/:bike_id', bikes_controller.deleteBike);
+bikes_router.get('/users/:user_id/bikes', bikes_controller.getBikes);
+bikes_router.post('/users/:user_id/bikes', bikes_controller.createBike);
+bikes_router.get('/users/:user_id/bikes/:bike_id', bikes_controller.getBikeById);
+bikes_router.put('/users/:user_id/bikes/:bike_id', bikes_controller.updateBike);
+bikes_router.delete('/users/:user_id/bikes/:bike_id', bikes_controller.deleteBike);
 
-module.exports = bikes_controller;
+module.exports = bikes_router;

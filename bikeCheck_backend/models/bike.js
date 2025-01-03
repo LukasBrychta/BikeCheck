@@ -22,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       });
       Bike.belongsToMany(models.Component, {
         through: models.Bikes_Component,
+        foreignKey: 'bike_id',
+        otherKey: 'component_id',
       });
     }
   }

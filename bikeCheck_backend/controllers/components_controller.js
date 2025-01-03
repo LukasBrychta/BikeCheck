@@ -1,5 +1,5 @@
-const {Component} = require('../models');
-const {Bike} = require('../models/bike');
+const {Component, Bike, User} = require('../models');
+//const {Bike} = require('../models/bike');
 
 exports.getBikesComponents = async (req, res) => {
     try {
@@ -42,7 +42,7 @@ exports.createBikesComponent = async (req, res) => {
             });
         }
 
-        const bike = await Bike.findByPk(bike_id);
+        const bike = await Bike.findOne({where: {bike_id: bike_id}});
         if (!bike) {
             return res.status(404).send({ message: 'Bike not found' });
         }
@@ -133,7 +133,7 @@ exports.createStoredComponent = async (req, res) => {
             });
         }
 
-        const user = await User.findByPk(user_id);
+        const user = await User.findOne({where: {user_id: user_id}});
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
         }

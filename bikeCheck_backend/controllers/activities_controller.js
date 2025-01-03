@@ -59,7 +59,7 @@ exports.updateActivity = async (req, res) => {
     try {
         const { component_id, activity_id } = req.params;
         const [updated] = await Activity.update(req.body, {
-            where: { activity_id, component_id }
+            where: { activity_id: activity_id }
         });
 
         if (updated) {
@@ -76,7 +76,7 @@ exports.deleteActivity = async (req, res) => {
     try {
         const { component_id, activity_id } = req.params;
         const deleted = await Activity.destroy({
-            where: { activity_id, component_id }
+            where: { activity_id: activity_id }
         });
 
         if (deleted) {

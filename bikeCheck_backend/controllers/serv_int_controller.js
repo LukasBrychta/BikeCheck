@@ -42,7 +42,7 @@ exports.getServiceIntervalById = async (req, res) => {
     try {
         const { component_id, interval_id } = req.params;
         const serviceInterval = await Service_Interval.findOne({
-            where: { service_id: interval_id, component_id }
+            where: { service_id: interval_id }
         });
 
         if (!serviceInterval) {
@@ -59,7 +59,7 @@ exports.updateServiceInterval = async (req, res) => {
     try {
         const { component_id, interval_id } = req.params;
         const [updated] = await Service_Interval.update(req.body, {
-            where: { service_id: interval_id, component_id }
+            where: { service_id: interval_id }
         });
 
         if (updated) {
@@ -76,7 +76,7 @@ exports.deleteServiceInterval = async (req, res) => {
     try {
         const { component_id, interval_id } = req.params;
         const deleted = await Service_Interval.destroy({
-            where: { service_id: interval_id, component_id }
+            where: { service_id: interval_id }
         });
 
         if (deleted) {

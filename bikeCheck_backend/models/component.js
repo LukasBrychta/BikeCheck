@@ -12,15 +12,23 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Component.belongsToMany(models.User, {
         through: models.Stored_Component,
+        foreignKey: 'component_id',
+        otherKey: 'user_id',
       });
       Component.belongsToMany(models.Bike, {
         through: models.Bikes_Component,
+        foreignKey: 'component_id',
+        otherKey: 'bike_id',
       });
       Component.belongsToMany(models.Activity, {
         through: models.Components_Activity,
+        foreignKey: 'component_id',
+        otherKey: 'activity_id',
       });
       Component.belongsToMany(models.Service_Interval, {
         through: models.Components_Service,
+        foreignKey: 'component_id',
+        otherKey: 'service_id',
       });
     }
   }

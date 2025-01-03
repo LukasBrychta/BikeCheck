@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Service_Interval.belongsToMany(models.Component, {
         through: models.Components_Service,
+        foreignKey: 'service_id',
+        otherKey: 'component_id',
       });
     }
   }
