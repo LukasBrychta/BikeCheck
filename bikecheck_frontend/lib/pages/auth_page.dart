@@ -8,7 +8,7 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(onPressed: (() => {authenticate(context)}), child: const Text('Connect with Strava')),
+        child: ElevatedButton(onPressed: (() => {authenticate()}), child: const Text('Connect with Strava')),
       ),
     );
   }

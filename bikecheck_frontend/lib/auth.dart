@@ -6,39 +6,24 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 import 'package:go_router/go_router.dart';
 
 
-void authenticate(BuildContext context) async {
+void authenticate() async {
   
   String clientId = dotenv.env['CLIENT_ID'] ?? '';
-  String callbackUrl = 'com.bikecheck';//dotenv.env['CALLBACK_URL'] ?? '';
+  String callbackUrl = dotenv.env['CALLBACK_URL'] ?? '';
   String backendUrl = dotenv.env['BACKEND_URL'] ?? '';
+  print("Callback URL: $callbackUrl");
+  print("Callback URL Scheme: ${Uri.parse(callbackUrl).scheme}");
 
-  final authUrl = Uri.https('www.strava.com', 'oauth/mobile/authorize', {
+
+  final authUrl = Uri.https('www.strava.com', '/oauth/mobile/authorize', {
+    'response_type': 'code',
     'client_id': clientId,
     'redirect_uri': callbackUrl,
-    'response_type': 'code',
-    'scope': 'read,profile:read_all,activity:read_all'
+    'scope': 'read,profile:read_all,activity:read'
   });
-  print('||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||');
-  print(authUrl);
 
-  final result = await FlutterWebAuth2.authenticate(url: authUrl.toString(), callbackUrlScheme: 'com.bikecheck');
+  final result = await FlutterWebAuth2.authenticate(url: authUrl.toString(), callbackUrlScheme: 'bikecheck');
 
   final code = Uri.parse(result).queryParameters['code'];
-
-  final response = await http.post(
-    Uri.parse('$backendUrl/exchange'),
-    body: jsonEncode({'code': code}),
-    headers: {'Content-Type': 'application/json'},
-  );
-
-  if(response.statusCode == 200) {
-    final responseData = jsonDecode(response.body);
-    final accessToken = responseData['access_token'];
-
-    if(context.mounted) {
-      context.go('/home');
-    }
-  } else {
-    print('Error exchanging token');
-  }
+  print("code: $code");
 }
