@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
@@ -18,7 +20,12 @@ void authenticate() async {
 
   final result = await FlutterWebAuth2.authenticate(url: authUrl.toString(), callbackUrlScheme: 'bikecheck');
 
-  final code = Uri.parse(result).queryParameters['code'];
+  final authCode = Uri.parse(result).queryParameters['code'];
+  print('|||||||||||||||||| $authCode');
+
+  final exchangeUri = Uri.parse('http://localhost:3000/strava/auth/tokenexchange');
+
+  final tokensResponse = await http.post(exchangeUri, body: jsonEncode({'code': authCode}));
   
   router.go('/home');
 }

@@ -13,12 +13,14 @@ const bikesRoutes = require('./routes/bikes');
 const componentsRoutes = require('./routes/components');
 const activitiesRoutes = require('./routes/activities');
 const serviceRoutes = require('./routes/service_intervals');
+const stravaRoutes = require('./routes/strava');
 
 app.use('/users', usersRoutes);
 app.use('/bikes', bikesRoutes);
 app.use('/components', componentsRoutes);
 app.use('/activities', activitiesRoutes);
 app.use('/service', serviceRoutes);
+app.use('/strava', stravaRoutes);
 
 app.get('/', (req, res) => {
     res.send('Welcome to the API!');
@@ -43,3 +45,5 @@ db.sequelize.sync()
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`)
 });
+
+module.exports = app;
