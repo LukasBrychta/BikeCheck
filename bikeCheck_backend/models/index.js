@@ -14,9 +14,12 @@ if (process.env.DATABASE_URL) {
   // Use DATABASE_URL from Render
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
-    ssl: {
-      rejectUnauthorized: false,  // Required for Render's PostgreSQL connection
-    },
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   });
 } else {
   // Local development: Use the configuration from config.js
