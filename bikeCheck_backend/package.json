@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm install && npx sequelize-cli db:migrate"
+    "migrate": "node migrationscript.js"
   },
   "keywords": [],
   "author": "",
