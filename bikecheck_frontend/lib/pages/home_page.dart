@@ -11,25 +11,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    UserInfo.instance.user!.username,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                ],
-              ),
-              const Row(
-                children: [
-                  
-                ],
-              )
-            ],
+      body: AppBar(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      UserInfo.instance.user!.username,
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                const Row(
+                  children: [
+                    
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

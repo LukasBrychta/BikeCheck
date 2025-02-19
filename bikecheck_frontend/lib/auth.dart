@@ -56,5 +56,5 @@ initializeUser(Map<String, dynamic> data) {
   String lastName = athlete['lastname'];
   String username = '$firstName $lastName';
   print('Returning user $username');
-  return User(stravaId: stravaId, username: username, authorized: true);
+  return User(stravaId: stravaId, username: username);
 }
