@@ -1,6 +1,9 @@
+import 'component.dart';
+
 class Bike {
-  int? bikeId;
+  String? bikeId;
   String name;
   int userId;
+  Map<String,Component>? components;
   Bike({this.bikeId, required this.name, required this.userId});
 }
