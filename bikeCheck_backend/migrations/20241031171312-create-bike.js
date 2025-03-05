@@ -5,13 +5,16 @@ module.exports = {
     await queryInterface.createTable('Bikes', {
       bike_id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING(30)
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING(40)
+        type: Sequelize.STRING(25)
+      },
+      distance: {
+        allowNull: false,
+        type: Sequelize.DECIMAL
       },
       user_id: {
         allowNull: false,
@@ -21,7 +24,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
       },
       createdAt: {
         allowNull: false,

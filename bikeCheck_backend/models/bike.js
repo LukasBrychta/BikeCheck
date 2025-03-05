@@ -30,13 +30,16 @@ module.exports = (sequelize, DataTypes) => {
   Bike.init({
     bike_id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING(30)
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(40)
+      type: DataTypes.STRING(25)
+    },
+    distance: {
+      allowNull: false,
+      type: DataTypes.DECIMAL,
     },
     user_id: {
       allowNull: false,
@@ -46,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
     },
   }, {
     sequelize,

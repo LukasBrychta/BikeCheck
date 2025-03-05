@@ -9,14 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      last_service: {
+      description: {
         allowNull: true,
-        defaultValue: null,
-        type: Sequelize.DATE
-      },
-      next_service: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING(255)
       },
       createdAt: {
         allowNull: false,

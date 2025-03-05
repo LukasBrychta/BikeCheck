@@ -25,9 +25,8 @@ module.exports = (sequelize, DataTypes) => {
   Activity.init({
     activity_id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.BIGINT
     },
     distance: {
       allowNull: false,
@@ -45,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING
     },
   }, {
     sequelize,

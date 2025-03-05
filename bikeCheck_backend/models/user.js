@@ -25,24 +25,21 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     user_id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
-    },
-    strava_id: {
-      allowNull: false,
-      unique: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.BIGINT
     },
     username: {
       allowNull: false,
       type: DataTypes.STRING(40)
     },
-    email: {
+    access_token: {
       allowNull: false,
-      unique: true,
-      type: DataTypes.STRING(40)
+      type: DataTypes.STRING(100)
     },
+    refresh_token: {
+      allowNull: false,
+      type: DataTypes.STRING(100)
+    }
   }, {
     sequelize,
     modelName: 'User',

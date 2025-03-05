@@ -24,15 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    last_service: {
+    description: {
       allowNull: true,
-      defaultValue: null,
-      type: DataTypes.DATE
-    },
-    next_service: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
+      type: DataTypes.STRING(255)
+    }
   }, {
     sequelize,
     modelName: 'Service_Interval',

@@ -11,7 +11,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT
       },
       component_id: {
         allowNull: false,

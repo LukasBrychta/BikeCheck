@@ -20,10 +20,10 @@ exports.getComponentActivities = async (req, res) => {
 exports.createComponentActivity = async (req, res) => {
     try {
         const { component_id } = req.params;
-        const { distance, duration } = req.body;
+        const { distance, duration, bike_id } = req.body;
 
-        if (!distance || !duration) {
-            return res.status(400).send({ message: 'Distance and duration are required.' });
+        if (!distance || !duration || !bike_id) {
+            return res.status(400).send({ message: 'Distance, duration and bike_id are required.' });
         }
 
         const component = await Component.findByPk(component_id);
@@ -31,7 +31,13 @@ exports.createComponentActivity = async (req, res) => {
             return res.status(404).send({ message: `Component with component_id=${component_id} not found.` });
         }
 
-        const activity = await Activity.create({ distance, duration, component_id });
+        const activity = await Activity.create({ 
+            distance, 
+            duration, 
+            bike_id, 
+            component_id 
+        });
+        
         res.send({ activity, message: 'Activity created successfully.' });
     } catch (err) {
         res.status(500).send({ message: err.message || 'Error creating activity.' });

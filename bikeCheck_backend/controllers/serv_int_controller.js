@@ -20,7 +20,7 @@ exports.getComponentServiceIntervals = async (req, res) => {
 exports.createComponentServiceInterval = async (req, res) => {
     try {
         const { component_id } = req.params;
-        const { last_service, next_service } = req.body;
+        const { description } = req.body;
 
         if (!next_service) {
             return res.status(400).send({ message: 'Next service date is required.' });
@@ -31,7 +31,7 @@ exports.createComponentServiceInterval = async (req, res) => {
             return res.status(404).send({ message: `Component with component_id=${component_id} not found.` });
         }
 
-        const serviceInterval = await Service_Interval.create({ last_service, next_service, component_id });
+        const serviceInterval = await Service_Interval.create({ description, component_id });
         res.send({ serviceInterval, message: 'Service interval created successfully.' });
     } catch (err) {
         res.status(500).send({ message: err.message || 'Error creating service interval.' });
