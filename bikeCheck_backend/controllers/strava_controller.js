@@ -1,5 +1,5 @@
-const { encrypt, decrypt } = require('../utils/encryption');
-const { User, Bike } = require('../models');
+const { encrypt, decrypt } = require("../utils/encryption");
+const { User, Bike } = require("../models");
 
 exports.tokenExchange = async (req, res) => {
   try {
@@ -53,7 +53,7 @@ exports.tokenExchange = async (req, res) => {
         },
       });
       if (stravaBikes.ok) {
-        const bikeData =await stravaBikes.json();
+        const bikeData = await stravaBikes.json();
         for (const bike of bikeData.bikes) {
           const detailedBike = await fetch(
             `https://www.strava.com/api/v3/gear/${bike.id}`,
@@ -66,17 +66,18 @@ exports.tokenExchange = async (req, res) => {
           if (detailedBike.ok) {
             const detailedBikeData = await detailedBike.json();
             await Bike.create({
-            user_id: user.id,
-            bike_id: detailedBikeData.id,
-            name: bike.name,
-            distance: detailedBikeData.distance,
-          });
+              user_id: user.id,
+              bike_id: detailedBikeData.id,
+              name: bike.name,
+              distance: detailedBikeData.distance,
+            });
           } else {
             console.error("Failed to fetch bike data:", detailedBike.status);
+          }
         }
+      } else {
+        console.error("Failed to fetch bikes:", stravaBikes.status);
       }
-    } else {
-      console.error("Failed to fetch bikes:", stravaBikes.status);
     }
 
     return res.status(200).json({
