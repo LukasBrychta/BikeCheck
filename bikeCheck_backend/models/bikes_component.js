@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     component_id: {
       allowNull: false,

@@ -41,11 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(40)
+      type: DataTypes.STRING(25)
     },
     type: {
       allowNull: false,
-      type: DataTypes.STRING(40)
+      type: DataTypes.STRING(20)
     },
     usage: {
       allowNull: false,

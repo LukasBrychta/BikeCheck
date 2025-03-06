@@ -5,23 +5,20 @@ module.exports = {
     await queryInterface.createTable('Users', {
       user_id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      strava_id: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT
       },
       username: {
         allowNull: false,
         type: Sequelize.STRING(40)
       },
-      email: {
+      access_token: {
         allowNull: false,
-        unique: true,
-        type: Sequelize.STRING(40)
+        type: Sequelize.STRING(100)
+      },
+      refresh_token: {
+        allowNull: false,
+        type: Sequelize.STRING(100)
       },
       createdAt: {
         allowNull: false,

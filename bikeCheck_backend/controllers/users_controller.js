@@ -2,16 +2,17 @@ const {User} = require('../models');
 
 exports.createUser = async (req, res) => {
     try {
-        const { strava_id, username, email } = req.body;
-        if (!strava_id || !username || !email) {
+        const { user_id, username, access_token, refresh_token } = req.body;
+        if (!user_id || !username || !access_token || !refresh_token) {
             return res.status(400).send({
-                message: "All fields (strava_id, username, email) are required."
+                message: "All fields are required."
             });
         };
         const user = {
-            strava_id,
+            user_id,
             username,
-            email,
+            access_token,
+            refresh_token
         };
         const data = await User.create(user);
         res.send({

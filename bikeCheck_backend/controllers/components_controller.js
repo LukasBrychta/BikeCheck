@@ -1,5 +1,4 @@
 const {Component, Bike, User} = require('../models');
-//const {Bike} = require('../models/bike');
 
 exports.getBikesComponents = async (req, res) => {
     try {
@@ -53,11 +52,10 @@ exports.createBikesComponent = async (req, res) => {
             usage,
             lifespan
         });
-        
         await bike.addComponent(component);
     
         res.send({
-            message: `Component for bike with bike_id=${bike_id} created.`
+            component, message: `Component for bike with bike_id=${bike_id} created.`
         });
         
     } catch (err) {
@@ -99,21 +97,23 @@ exports.getBikesComponent = async (req, res) => {
 exports.getStoredComponents = async (req, res) => {
     try {
         const { user_id } = req.params;
-
-        const components = await User.findByPk(user_id, {
+        const data = await User.findByPk(user_id, {
             include: {
                 model: Component,
                 through: { attributes: [] },  
             },
         });
 
-        if (!components) {
-            return res.status(404).send({
-                message: `User with user_id=${user_id} not found.`,
+        if (data) {
+            res.send({
+                components: data.Components,
+                message: `Components for user with user_id=${user_id} retrieved successfully.`
+            });
+        } else {
+            res.status(404).send({
+                message: `No components found for user with user_id=${user_id}.`
             });
         }
-
-        res.send(components.Components);
     } catch (err) {
         res.status(500).send({
             message:
@@ -176,13 +176,13 @@ exports.getStoredComponent = async (req, res) => {
             });
         } else {
             res.status(404).send({
-                message: `No component found with component_id=${component_id} for bike with user_id=${user_id}.`
+                message: `No component found with component_id=${component_id} for user with user_id=${user_id}.`
             });
         }
     } catch (err) {
         res.status(500).send({
             message:
-                err.message || `Error retrieving component with component_id=${component_id} for bike with user_id=${user_id}.`
+                err.message || `Error retrieving component with component_id=${component_id} for user with user_id=${user_id}.`
         });
     }
 };

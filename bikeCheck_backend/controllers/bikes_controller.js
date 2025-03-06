@@ -26,16 +26,18 @@ exports.getBikes = async (req, res) => {
 exports.createBike = async (req, res) => {
     try {
         const { user_id } = req.params;
-        const { name } = req.body;
+        const { bike_id, name, distance } = req.body;
 
-        if (!user_id || !name) {
+        if (!user_id || !name || !bike_id || !distance) {
             return res.status(400).send({
-                message: "All fields (name, user_id) are required."
+                message: "All fields are required."
             });
         };
 
         const bike = {
+            bike_id,
             name,
+            distance,
             user_id,
         };
 
