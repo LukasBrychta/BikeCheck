@@ -1,4 +1,4 @@
-const { encrypt, decrypt } = require("../utils/crypto");
+const { encrypt, decrypt } = require('../utils/encryption');
 
 exports.tokenExchange = async (req, res) => {
   try {
