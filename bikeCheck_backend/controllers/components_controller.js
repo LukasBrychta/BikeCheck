@@ -52,11 +52,10 @@ exports.createBikesComponent = async (req, res) => {
             usage,
             lifespan
         });
-        
         await bike.addComponent(component);
     
         res.send({
-            message: `Component for bike with bike_id=${bike_id} created.`
+            component, message: `Component for bike with bike_id=${bike_id} created.`
         });
         
     } catch (err) {
