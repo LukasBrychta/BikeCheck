@@ -7,7 +7,7 @@ class User {
 
   static User fromJson(data) {
     return User(
-      userId: data['user_id'],
+      userId: int.parse(data['user_id']),
       username: data['username'],
     );
   }
