@@ -1,4 +1,5 @@
 const { encrypt, decrypt } = require('../utils/encryption');
+const { User, Bike } = require('../models');
 
 exports.tokenExchange = async (req, res) => {
   try {
@@ -41,7 +42,7 @@ exports.tokenExchange = async (req, res) => {
       const encryptedRefreshToken = encrypt(refresh_token);
       user = await User.create({
         user_id: athlete.id,
-        username: "${athlete.firstname} ${athlete.lastname}",
+        username: `${athlete.firstname} ${athlete.lastname}`,
         access_token: encryptedAccessToken,
         refresh_token: encryptedRefreshToken,
       });
