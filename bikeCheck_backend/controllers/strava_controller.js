@@ -38,8 +38,8 @@ exports.tokenExchange = async (req, res) => {
 
     let user = await User.findOne({ where: { user_id: athlete.id } });
     if (!user) {
-      const encryptedAccessToken = encrypt(access_token);
-      const encryptedRefreshToken = encrypt(refresh_token);
+      const encryptedAccessToken = encrypt(access_token.toString());
+      const encryptedRefreshToken = encrypt(refresh_token.toString());
       user = await User.create({
         user_id: athlete.id,
         username: `${athlete.firstname} ${athlete.lastname}`,
