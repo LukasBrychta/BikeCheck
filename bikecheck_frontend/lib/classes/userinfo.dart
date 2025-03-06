@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:bikecheck_frontend/classes/bike.dart';
 import 'package:bikecheck_frontend/classes/user.dart';
-import 'encrypted_storage.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -17,31 +16,19 @@ class UserInfo{
     _user = user;
   }
 
-  Future<void> setBikes(int id) async {
-  final acToken = await EncryptedStorage.instance.secureStorage!.readSecureData('access_token');
-  
-  // Check if access token is missing
-  if (acToken == null) {
-    print('Access token is missing');
-    return;
-  }
-
-  final url = Uri.parse('https://www.strava.com/api/v3/athlete');
+  Future<void> setBikes(int id) async {  
+  final paramsId = id.toString();
+  final url = Uri.parse('https://bikecheck.onrender.com/bikes/users/$paramsId/bikes');
   final response = await http.get(
     url,
-    headers: {
-      'Authorization': 'Bearer $acToken',
-    },
   );
 
-  // If response is successful (status code 200)
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
     
-    // Check if 'bikes' key exists in the response
     if (data.containsKey('bikes')) {
       final List<dynamic> bikes = data['bikes'];
-      print('Fetched ${bikes.length} bikes for $id');
+      print('Fetched ${bikes.length} bikes for user $id');
       
       // Initialize bikes if null
       if (UserInfo.instance.user?.bikes == null) {

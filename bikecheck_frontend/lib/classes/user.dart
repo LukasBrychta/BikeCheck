@@ -1,8 +1,14 @@
 import 'bike.dart';
 class User {
-  int? userId;
-  int stravaId;
+  int userId;
   String username;
   Map<String, Bike>? bikes;
-  User({this.userId, required this.stravaId, required this.username});
+  User({required this.userId, required this.username});
+
+  static User fromJson(data) {
+    return User(
+      userId: data['user_id'],
+      username: data['username'],
+    );
+  }
 }

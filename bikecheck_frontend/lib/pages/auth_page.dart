@@ -13,7 +13,7 @@ class AuthPage extends StatelessWidget {
     print('authenticated');
     UserInfo.instance.setUser(user);
     print('user set $user');
-    await UserInfo.instance.setBikes(user.stravaId);
+    await UserInfo.instance.setBikes(user.userId);
     print('bikes set');
     router.go('/home');
   }
