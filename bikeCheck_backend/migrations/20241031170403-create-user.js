@@ -14,11 +14,11 @@ module.exports = {
       },
       access_token: {
         allowNull: false,
-        type: Sequelize.STRING(100)
+        type: Sequelize.TEXT
       },
       refresh_token: {
         allowNull: false,
-        type: Sequelize.STRING(100)
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

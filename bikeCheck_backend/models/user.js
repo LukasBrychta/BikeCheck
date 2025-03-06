@@ -34,11 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     access_token: {
       allowNull: false,
-      type: DataTypes.STRING(100)
+      type: DataTypes.TEXT
     },
     refresh_token: {
       allowNull: false,
-      type: DataTypes.STRING(100)
+      type: DataTypes.TEXT
     }
   }, {
     sequelize,
