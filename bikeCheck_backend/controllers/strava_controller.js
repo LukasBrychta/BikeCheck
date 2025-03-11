@@ -34,7 +34,7 @@ exports.tokenExchange = async (req, res) => {
     }
 
     const data = await stravaResponse.json();
-    const { access_token, refresh_token, athlete } = data;
+    let { access_token, refresh_token, athlete } = data;
 
     let user = await User.findOne({ where: { user_id: athlete.id } });
     if (!user) {
