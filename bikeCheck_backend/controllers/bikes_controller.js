@@ -5,7 +5,7 @@ exports.getBikes = async (req, res) => {
         const { user_id } = req.params;
         const data = await Bike.findAll({where: {user_id}});
 
-        if(data) {
+        if(data && data.length > 0) {
             res.send({
                 data,
                 message: `Bikes for user with user_id=${user_id} retrieved successfully.`

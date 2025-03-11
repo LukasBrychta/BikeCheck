@@ -15,9 +15,6 @@ Future<User> authenticate() async {
     rethrow;
   }
 
-  /*final SecureStorage secureStorage = SecureStorage();
-  EncryptedStorage.instance.setEncryptedStorage(secureStorage);*/
-
   final authUrl = Uri.https('www.strava.com', '/oauth/mobile/authorize', {
     'response_type': 'code',
     'client_id': clientId,
@@ -27,6 +24,7 @@ Future<User> authenticate() async {
 
   final result = await FlutterWebAuth2.authenticate(url: authUrl.toString(), callbackUrlScheme: 'bikecheck');
   final authCode = Uri.parse(result).queryParameters['code'];
+  print(authCode);
 
   final exchangeUri = Uri.parse('https://bikecheck.onrender.com/strava/auth/tokenexchange');
   final response = await http.post(

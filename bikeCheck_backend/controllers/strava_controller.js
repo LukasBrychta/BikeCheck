@@ -46,40 +46,44 @@ exports.tokenExchange = async (req, res) => {
         access_token: encryptedAccessToken,
         refresh_token: encryptedRefreshToken,
       });
+    } else {
+      access_token = decrypt(user.access_token);
+    }
 
-      const stravaBikes = await fetch("https://www.strava.com/api/v3/athlete", {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
-      if (stravaBikes.ok) {
-        const bikeData = await stravaBikes.json();
-        console.log("Fetched bike data:", bikeData); // Debugging statement
-        for (const bike of bikeData.bikes) {
-          const detailedBike = await fetch(
-            `https://www.strava.com/api/v3/gear/${bike.id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${access_token}`,
-              },
-            }
-          );
-          if (detailedBike.ok) {
-            const detailedBikeData = await detailedBike.json();
-            console.log("Fetched detailed bike data:", detailedBikeData); // Debugging statement
-            await Bike.create({
-              user_id: user.id,
-              bike_id: detailedBikeData.id,
-              name: bike.name,
-              distance: detailedBikeData.distance,
-            });
-          } else {
-            console.error("Failed to fetch bike data:", detailedBike.status);
+    const stravaBikes = await fetch("https://www.strava.com/api/v3/athlete", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    if (stravaBikes.ok) {
+      const bikeData = await stravaBikes.json();
+      console.log("Fetched bike data:", bikeData);
+      for (const bike of bikeData.bikes) {
+        console.log("Processing bike:", bike);
+        const detailedBike = await fetch(
+          `https://www.strava.com/api/v3/gear/${bike.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
           }
+        );
+        if (detailedBike.ok) {
+          const detailedBikeData = await detailedBike.json();
+          console.log("Fetched detailed bike data:", detailedBikeData); 
+          await Bike.create({
+            user_id: user.id,
+            bike_id: detailedBikeData.id,
+            name: bike.name,
+            distance: detailedBikeData.distance,
+          });
+          console.log("Bike created in database:", detailedBikeData.id);
+        } else {
+          console.error("Failed to fetch bike data:", detailedBike.status);
         }
-      } else {
-        console.error("Failed to fetch bikes:", stravaBikes.status);
       }
+    } else {
+      console.error("Failed to fetch bikes:", stravaBikes.status);
     }
 
     return res.status(200).json({
