@@ -54,6 +54,7 @@ exports.tokenExchange = async (req, res) => {
       });
       if (stravaBikes.ok) {
         const bikeData = await stravaBikes.json();
+        console.log("Fetched bike data:", bikeData); // Debugging statement
         for (const bike of bikeData.bikes) {
           const detailedBike = await fetch(
             `https://www.strava.com/api/v3/gear/${bike.id}`,
@@ -65,6 +66,7 @@ exports.tokenExchange = async (req, res) => {
           );
           if (detailedBike.ok) {
             const detailedBikeData = await detailedBike.json();
+            console.log("Fetched detailed bike data:", detailedBikeData); // Debugging statement
             await Bike.create({
               user_id: user.id,
               bike_id: detailedBikeData.id,

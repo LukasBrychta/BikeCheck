@@ -12,7 +12,7 @@ class AuthPage extends StatelessWidget {
     User user = await authenticate();
     print('authenticated');
     UserInfo.instance.setUser(user);
-    print('user set $user');
+    print('user set ${user.username}, ${user.userId}');
     await UserInfo.instance.setBikes(user.userId);
     print('bikes set');
     router.go('/home');
