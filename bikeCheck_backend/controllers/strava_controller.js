@@ -111,13 +111,23 @@ exports.tokenExchange = async (req, res) => {
         if (detailedBike.ok) {
           const detailedBikeData = await detailedBike.json();
           console.log("Fetched detailed bike data:", detailedBikeData);
-          await Bike.create({
-            user_id: user.user_id,
-            bike_id: detailedBikeData.id,
-            name: bike.name,
-            distance: detailedBikeData.distance,
+          const existingBike = await Bike.findOne({
+            where: { bike_id: detailedBikeData.id, user_id: user.user_id },
           });
-          console.log("Bike created in database:", detailedBikeData.id);
+          if (!existingBike) {
+            await Bike.create({
+              user_id: user.user_id,
+              bike_id: detailedBikeData.id,
+              name: bike.name,
+              distance: detailedBikeData.distance,
+            });
+            console.log("Bike created in database:", detailedBikeData.id);
+          } else {
+            console.log(
+              "Bike already exists in database:",
+              detailedBikeData.id
+            );
+          }
         } else {
           console.error("Failed to fetch bike data:", detailedBike.status);
         }
