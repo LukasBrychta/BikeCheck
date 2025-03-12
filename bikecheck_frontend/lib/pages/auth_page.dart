@@ -13,9 +13,9 @@ class AuthPage extends StatelessWidget {
     print('authenticated');
     UserInfo.instance.setUser(user);
     print('user set ${user.username}, ${user.userId}');
-    /*await UserInfo.instance.setBikes(user.userId);
+    await UserInfo.instance.setBikes(user.userId);
     print('bikes set');
-    router.go('/home');*/
+    router.go('/home');
   }
 
   @override

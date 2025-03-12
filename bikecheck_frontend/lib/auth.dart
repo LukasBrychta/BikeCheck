@@ -26,7 +26,7 @@ Future<User> authenticate() async {
   final authCode = Uri.parse(result).queryParameters['code'];
   print(authCode);
 
-  /*final exchangeUri = Uri.parse('https://bikecheck.onrender.com/strava/auth/tokenexchange');
+  final exchangeUri = Uri.parse('https://bikecheck.onrender.com/strava/auth/tokenexchange');
   final response = await http.post(
     exchangeUri, 
     headers: {'Content-Type': 'application/json'}, 
@@ -40,6 +40,5 @@ Future<User> authenticate() async {
   }
   else {
     throw Exception('Failed to authenticate');
-  }*/
-  return User(userId: 1, username: 'test');
+  }
 }

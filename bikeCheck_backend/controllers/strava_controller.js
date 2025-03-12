@@ -112,7 +112,7 @@ exports.tokenExchange = async (req, res) => {
           const detailedBikeData = await detailedBike.json();
           console.log("Fetched detailed bike data:", detailedBikeData);
           await Bike.create({
-            user_id: user.id,
+            user_id: user.user_id,
             bike_id: detailedBikeData.id,
             name: bike.name,
             distance: detailedBikeData.distance,
