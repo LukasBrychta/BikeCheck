@@ -1,5 +1,7 @@
 const crypto = require('crypto');
-const secretKey = process.env.SECRET_KEY;
+
+const salt = process.env.SALT; // 16 bytes salt
+const secretKey = crypto.scryptSync(process.env.SECRET_KEY, salt, 32); // 32 bytes key derived from secret key
 
 function encrypt(text) {
     const iv = crypto.randomBytes(16);

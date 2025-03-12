@@ -39,6 +39,6 @@ Future<User> authenticate() async {
     return user;
   }
   else {
-    throw Exception('Failed to authenticate');
+    throw Exception('Failed to authenticate, error code: ${response.statusCode}, body: ${response.body}');
   }
 }
