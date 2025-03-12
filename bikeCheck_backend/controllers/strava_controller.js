@@ -20,9 +20,11 @@ exports.tokenExchange = async (req, res) => {
     tokenExchangeUrl.searchParams.append("grant_type", "authorization_code");
     console.log("Full Strava URL:", tokenExchangeUrl.toString());
 
+    console.log("Exchanging token with Strava...");
     const stravaResponse = await fetch(tokenExchangeUrl, {
       method: "POST",
     });
+    console.log("Strava response:", stravaResponse);
 
     if (!stravaResponse.ok) {
       const errorData = await stravaResponse.json();
@@ -144,6 +146,6 @@ exports.tokenExchange = async (req, res) => {
     });
   } catch (err) {
     console.error("Error exchanging token:", err);
-    res.status(500).send({ message: "Failed to exchange token" });
+    res.status(500).json({ message: "Failed to exchange token", error: err.message });
   }
 };
