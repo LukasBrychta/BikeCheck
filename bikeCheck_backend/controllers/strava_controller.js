@@ -48,13 +48,53 @@ exports.tokenExchange = async (req, res) => {
       });
     } else {
       access_token = decrypt(user.access_token);
+      refresh_token = decrypt(user.refresh_token);
     }
 
-    const stravaBikes = await fetch("https://www.strava.com/api/v3/athlete", {
+    let stravaBikes = await fetch("https://www.strava.com/api/v3/athlete", {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
     });
+
+    if (stravaBikes.status === 401) {
+      const refreshTokenUrl = new URL("https://www.strava.com/oauth/token");
+      refreshTokenUrl.searchParams.append("client_id", process.env.CLIENT_ID);
+      refreshTokenUrl.searchParams.append(
+        "client_secret",
+        process.env.CLIENT_SECRET
+      );
+      refreshTokenUrl.searchParams.append("refresh_token", refresh_token);
+      refreshTokenUrl.searchParams.append("grant_type", "refresh_token");
+
+      const refreshResponse = await fetch(refreshTokenUrl, {
+        method: "POST",
+      });
+
+      if (!refreshResponse.ok) {
+        const errorData = await refreshResponse.json();
+        console.error("Strava API refresh token error:", errorData);
+        return res.status(refreshResponse.status).send({
+          message: "Failed to refresh token",
+          details: errorData,
+        });
+      }
+
+      const refreshData = await refreshResponse.json();
+      access_token = refreshData.access_token;
+      refresh_token = refreshData.refresh_token;
+
+      user.access_token = encrypt(access_token.toString());
+      user.refresh_token = encrypt(refresh_token.toString());
+      await user.save();
+
+      stravaBikes = await fetch("https://www.strava.com/api/v3/athlete", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+    }
+
     if (stravaBikes.ok) {
       const bikeData = await stravaBikes.json();
       console.log("Fetched bike data:", bikeData);
@@ -70,7 +110,7 @@ exports.tokenExchange = async (req, res) => {
         );
         if (detailedBike.ok) {
           const detailedBikeData = await detailedBike.json();
-          console.log("Fetched detailed bike data:", detailedBikeData); 
+          console.log("Fetched detailed bike data:", detailedBikeData);
           await Bike.create({
             user_id: user.id,
             bike_id: detailedBikeData.id,
