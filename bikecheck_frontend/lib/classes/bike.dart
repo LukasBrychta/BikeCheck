@@ -16,4 +16,8 @@ class Bike {
       userId: int.parse(data['user_id']),
     );
   }
+
+  double mToKm(int distance) {
+    return distance / 1000;
+  }
 }

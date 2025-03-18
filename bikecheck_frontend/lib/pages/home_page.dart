@@ -1,3 +1,4 @@
+import 'package:bikecheck_frontend/router.config.dart';
 import 'package:flutter/material.dart';
 import 'package:bikecheck_frontend/classes/userinfo.dart';
 
@@ -13,21 +14,19 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('BikeCheck'),
-        centerTitle: true, // Centers the title
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Name Row
             Text(
               UserInfo.instance.user!.username,
-              style: Theme.of(context).textTheme.headlineSmall, // Uses default text style
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(height: 16), // Spacing
+            const SizedBox(height: 16),
 
-            // Bike List
             Expanded(
               child: ListView.builder(
                 itemCount: UserInfo.instance.user!.bikes!.length,
@@ -36,10 +35,11 @@ class _HomePageState extends State<HomePage> {
                   return Card(
                     child: ListTile(
                       title: Text(bike.name),
-                      leading: const Icon(Icons.pedal_bike), // Bike icon
-                      trailing: const Icon(Icons.arrow_forward_ios), // Arrow icon
+                      subtitle: Text('${bike.mToKm(bike.distance).toStringAsFixed(2)} km'),
+                      leading: const Icon(Icons.pedal_bike),
+                      trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {
-                        // Handle bike tap
+                        router.go('/components', extra: bike);
                       },
                     ),
                   );

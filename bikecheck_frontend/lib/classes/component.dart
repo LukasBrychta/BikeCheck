@@ -1,4 +1,4 @@
-enum ComponentType {chain, cassette, chainring, brakePads, brakeRotors, tires, suspension}
+enum ComponentType {chain, cassette, chainring, brakePads, brakeRotors, tires, suspension, other}
 class Component {
   int? componentId;
   String name;
@@ -23,7 +23,45 @@ class Component {
       return 2800;
       case ComponentType.suspension:
       return 1250;
+      case ComponentType.other:
+      return 0;
     }
+  }
+
+  static Component fromJson(data){
+    ComponentType type;
+    switch(data['type']){
+      case 'chain':
+      type = ComponentType.chain;
+      break;
+      case 'cassette':
+      type = ComponentType.cassette;
+      break;
+      case 'chainring':
+      type = ComponentType.chainring;
+      break;
+      case 'brakePads':
+      type = ComponentType.brakePads;
+      break;
+      case 'brakeRotors':
+      type = ComponentType.brakeRotors;
+      break;
+      case 'tires':
+      type = ComponentType.tires;
+      break;
+      case 'suspension':
+      type = ComponentType.suspension;
+      break;
+      default:
+      type = ComponentType.other;
+      break;
+    }
+    return Component(
+      componentId: int.parse(data['component_id']),
+      name: data['name'],
+      type: type,
+      usage: data['usage']
+    );
   }
 }
 

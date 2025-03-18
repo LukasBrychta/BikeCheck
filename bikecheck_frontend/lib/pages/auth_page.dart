@@ -4,18 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:bikecheck_frontend/auth.dart';
 import 'package:bikecheck_frontend/classes/userinfo.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
 
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
   Future<void> _authAndRedirect() async {
     router.go('/loading');
-    User user = await authenticate();
-    print('authenticated');
+    User? user = await authenticate();
+    if (user == null) {
+      _showAuthFailedDialog();
+      return;
+    }
+
     UserInfo.instance.setUser(user);
-    print('user set ${user.username}, ${user.userId}');
     await UserInfo.instance.setBikes(user.userId);
-    print('bikes set');
     router.go('/home');
+  }
+
+  void _showAuthFailedDialog() {
+    showDialog(context: context, builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Auth failed'),
+        content: const Text('Failed to authenticate. Try again.'),
+        actions: [
+          TextButton(onPressed: () => router.go('/'), child: const Text('OK')),
+        ],
+      );
+    });
   }
 
   @override
