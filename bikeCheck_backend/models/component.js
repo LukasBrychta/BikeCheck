@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20)
     },
     usage: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DECIMAL
     },
     lifespan: {

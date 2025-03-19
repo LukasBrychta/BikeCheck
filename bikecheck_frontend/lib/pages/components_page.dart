@@ -1,4 +1,5 @@
 import 'package:bikecheck_frontend/classes/userinfo.dart';
+import 'package:bikecheck_frontend/router.config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
@@ -87,29 +88,37 @@ class _ComponentsPageState extends State<ComponentsPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('No components for this bike'),
-                  SizedBox(height: 16),
+                  const Text('No components for this bike'),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       _fetchComponets(bike!.bikeId);
                     },
-                    child: Text('Retry'),
+                    child: const Text('Retry'),
                   ),
+                  ElevatedButton(onPressed: () => router.go('/addCompoent', extra: bike), child: const Text('Add Component'))
                 ],
               ),
             )
-          : ListView.builder(
-              itemCount: UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.length,
-              itemBuilder: (context, index) {
-                var component = UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.values.toList()[index];
-                return Card(
-                  child: ListTile(
-                    title: Text(component.name),
-                    subtitle: Text('${component.type.toString().split('.').last} - ${component.usage} km'),
+          : Center(
+            child: Column(
+              children: [
+                ListView.builder(
+                    itemCount: UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.length,
+                    itemBuilder: (context, index) {
+                      var component = UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.values.toList()[index];
+                      return Card(
+                        child: ListTile(
+                          title: Text(component.name),
+                          subtitle: Text('${component.type.toString().split('.').last} - ${component.usage} km'),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+                  ElevatedButton(onPressed: () => router.go('/addComponent', extra: bike), child: const Text('Add Component'))
+              ],
             ),
+          ),
     );
   }
 }

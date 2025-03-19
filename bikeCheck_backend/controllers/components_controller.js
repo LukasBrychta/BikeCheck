@@ -35,9 +35,9 @@ exports.createBikesComponent = async (req, res) => {
         const { bike_id } = req.params;
         const { name, type, usage, lifespan } = req.body;
 
-        if (!name || !type || !usage || !lifespan) {
+        if (!name || !type || !lifespan) {
             return res.status(400).send({
-                message: "All fields (name, type, usage, lifespan) are required."
+                message: "All fields (name, type, lifespan) are required."
             });
         }
 
