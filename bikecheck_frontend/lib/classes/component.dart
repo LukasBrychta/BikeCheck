@@ -57,10 +57,10 @@ class Component {
       break;
     }
     return Component(
-      componentId: int.parse(data['component_id']),
+      componentId: data['component_id'],
       name: data['name'],
       type: type,
-      usage: data['usage']
+      usage: double.parse(data['usage']),
     );
   }
 }

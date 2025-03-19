@@ -103,18 +103,20 @@ class _ComponentsPageState extends State<ComponentsPage> {
           : Center(
             child: Column(
               children: [
-                ListView.builder(
-                    itemCount: UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.length,
-                    itemBuilder: (context, index) {
-                      var component = UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.values.toList()[index];
-                      return Card(
-                        child: ListTile(
-                          title: Text(component.name),
-                          subtitle: Text('${component.type.toString().split('.').last} - ${component.usage} km'),
-                        ),
-                      );
-                    },
-                  ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.length,
+                      itemBuilder: (context, index) {
+                        var component = UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.values.toList()[index];
+                        return Card(
+                          child: ListTile(
+                            title: Text(component.name),
+                            subtitle: Text('${component.type.toString().split('.').last} - ${component.usage} km'),
+                          ),
+                        );
+                      },
+                    ),
+                ),
                   ElevatedButton(onPressed: () => router.go('/addComponent', extra: bike), child: const Text('Add Component'))
               ],
             ),

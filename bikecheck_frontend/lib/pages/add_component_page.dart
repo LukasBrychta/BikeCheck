@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:bikecheck_frontend/classes/component.dart';
+import 'package:bikecheck_frontend/router.config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
@@ -41,7 +39,7 @@ class _AddComponentPageState extends State<AddComponentPage> {
   }
 
   Future<void> _addComponent(Bike bike) async {
-    final String apiUrl = 'https://your-backend-url.com/components?bike_id=${bike.id}';
+    final String apiUrl = 'https://bikecheck.onrender.com/components/bikes/${bike.bikeId}/components';
     final Map<String, dynamic> body = {
       'name': _nameController.text,
       'type': _selectedType,
@@ -56,14 +54,11 @@ class _AddComponentPageState extends State<AddComponentPage> {
     );
 
     if (response.statusCode == 201) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Component added successfully!')),
-      );
-      Navigator.pop(context);
+      print('Component added successfully');
+      router.go('/components', extra: bike);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to add component: ${response.body}')),
-      );
+      print('Failed to add component, error code: ${response.statusCode}, body: ${response.body}');
+      router.go('/components', extra: bike);
     }
   }
 
