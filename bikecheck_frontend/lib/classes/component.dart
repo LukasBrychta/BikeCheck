@@ -1,3 +1,4 @@
+import 'package:bikecheck_frontend/classes/service.dart';
 enum ComponentType {chain, cassette, chainring, brakePads, brakeRotors, tires, suspension, other}
 class Component {
   int? componentId;
@@ -5,7 +6,8 @@ class Component {
   ComponentType type;
   double usage;
   double lifespan;
-  Component({ this.componentId, required this.name, required this.type, this.usage = 0}) : lifespan = _setLifeSpan(type);
+  Map<int, Service>? services;
+  Component({ this.componentId, required this.name, required this.type, this.usage = 0,}) : lifespan = _setLifeSpan(type);
 
   static double _setLifeSpan(ComponentType type){
     switch(type){

@@ -5,7 +5,7 @@ class Bike {
   String name;
   int distance;
   int userId;
-  Map<String,Component>? components;
+  Map<int,Component>? components;
   Bike({required this.bikeId, required this.name, required this.distance, required this.userId});
 
   static Bike fromJson(data) {

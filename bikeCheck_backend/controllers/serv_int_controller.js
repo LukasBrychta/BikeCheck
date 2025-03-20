@@ -12,7 +12,7 @@ exports.getComponentServiceIntervals = async (req, res) => {
 
         if (data) {
             res.send({
-                components: data.Components,
+                services: data.Service_Intervals,
                 message: `Services for component with component_id=${component_id} retrieved successfully.`
             });
         } else {

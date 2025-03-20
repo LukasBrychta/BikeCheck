@@ -53,7 +53,7 @@ class _AddComponentPageState extends State<AddComponentPage> {
       body: jsonEncode(body),
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       print('Component added successfully');
       router.go('/components', extra: bike);
     } else {

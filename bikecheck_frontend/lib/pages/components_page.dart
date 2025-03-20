@@ -19,7 +19,7 @@ class _ComponentsPageState extends State<ComponentsPage> {
   bool isLoading = true;
 
   @override
-  void didChangeDependencies() { //called when the dependencies of the state object change
+  void didChangeDependencies() { //called once when bike is recieved, prevents multiple calls to fetch components
     super.didChangeDependencies();
     if (bike == null) {
       bike = GoRouterState.of(context).extra as Bike?;
@@ -45,9 +45,9 @@ class _ComponentsPageState extends State<ComponentsPage> {
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
         List<dynamic> componentList = data['components'];
-        Map<String, Component> componentMap = {
+        Map<int, Component> componentMap = {
           for (var component in componentList)
-            component['component_id'].toString(): Component.fromJson(component)
+            component['component_id']: Component.fromJson(component)
         };
         setState(() {
           UserInfo.instance.user!.bikes![bike!.bikeId]!.components = componentMap;
@@ -89,14 +89,9 @@ class _ComponentsPageState extends State<ComponentsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('No components for this bike'),
-                  const SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () {
-                      _fetchComponets(bike!.bikeId);
-                    },
-                    child: const Text('Retry'),
-                  ),
-                  ElevatedButton(onPressed: () => router.go('/addCompoent', extra: bike), child: const Text('Add Component'))
+                    onPressed: () => router.go('/addCompoent', extra: bike),
+                    child: const Text('Add Component')),
                 ],
               ),
             )
@@ -111,7 +106,8 @@ class _ComponentsPageState extends State<ComponentsPage> {
                         return Card(
                           child: ListTile(
                             title: Text(component.name),
-                            subtitle: Text('${component.type.toString().split('.').last} - ${component.usage} km'),
+                            subtitle: Text('${component.type.toString().split('.').last} - Usage ${component.usage}/${component.lifespan} km'),
+                            onTap: () => router.go('/component', extra: {bike: bike, component: component}),
                           ),
                         );
                       },
