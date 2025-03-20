@@ -19,7 +19,7 @@ class _AddServicePageState extends State<AddServicePage> {
   Future<void> _addService(Component component, Bike bike) async {
     final String apiUrl = 'https://bikecheck.onrender.com/service/components/${component.componentId}/service_intervals';
     final Map<String, dynamic> body = {
-      'description': _descController.text ?? 'Service for ${component.name}',
+      'description': _descController.text.isNotEmpty ? _descController.text : 'Service for ${component.name}',
     };
 
     final response = await http.post(

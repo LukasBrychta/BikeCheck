@@ -90,7 +90,7 @@ class _ComponentsPageState extends State<ComponentsPage> {
                 children: [
                   const Text('No components for this bike'),
                   ElevatedButton(
-                    onPressed: () => router.go('/addCompoent', extra: bike),
+                    onPressed: () => router.go('/addComponent', extra: bike),
                     child: const Text('Add Component')),
                 ],
               ),
@@ -107,7 +107,7 @@ class _ComponentsPageState extends State<ComponentsPage> {
                           child: ListTile(
                             title: Text(component.name),
                             subtitle: Text('${component.type.toString().split('.').last} - Usage ${component.usage}/${component.lifespan} km'),
-                            onTap: () => router.go('/component', extra: {bike: bike, component: component}),
+                            onTap: () => router.go('/services', extra: {'bike': bike, 'component': component}),
                           ),
                         );
                       },

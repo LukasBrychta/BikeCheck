@@ -20,7 +20,7 @@ final router = GoRouter(
     GoRoute(path: '/home', builder: (context, state) => const HomePage()),
     GoRoute(path: '/loading', builder: (context, state) => const LoadingPage()),
     GoRoute(path: '/components', builder: (context, state) => const ComponentsPage()),
-    GoRoute(path: '/addCompoent', builder: (context, state) => const AddComponentPage()),
+    GoRoute(path: '/addComponent', builder: (context, state) => const AddComponentPage()),
     GoRoute(path: '/services', builder: (context, state) => const ServicesPage()),
     GoRoute(path: '/addService', builder: (context, state) => const AddServicePage()),
   ]

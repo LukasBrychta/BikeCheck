@@ -24,11 +24,9 @@ class _ServicesPageState extends State<ServicesPage> {
   void didChangeDependencies() { //called once when component is recieved, prevents multiple calls to fetch services
     super.didChangeDependencies();
     if (component == null && bike == null) {
-      final extras = GoRouterState.of(context).extra;
-      if (extras is Map<String, dynamic>) {
-        bike = extras['bike'] as Bike?;
-        component = extras['component'] as Component?;
-      }
+      final extras = GoRouterState.of(context).extra as Map<String, dynamic>?;
+      bike = extras!['bike'] as Bike?;
+      component = extras!['component'] as Component?;
       if(component != null && bike != null) {
         UserInfo.instance.user!.bikes![bike!.bikeId]!.components![component!.componentId]!.services = {};
         _fetchServices(component!.componentId!);
@@ -96,7 +94,7 @@ class _ServicesPageState extends State<ServicesPage> {
                 children: [
                   const Text('No services found for this component'),
                   ElevatedButton(
-                    onPressed: () => router.go('/addService', extra: {bike: bike, component: component}), 
+                    onPressed: () => router.go('/addService', extra: {'bike': bike, 'component': component}), 
                     child: const Text('Add service'),
                   ),
                 ],
