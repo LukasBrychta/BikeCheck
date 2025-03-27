@@ -118,7 +118,12 @@ class _ServicesPageState extends State<ServicesPage> {
                       },
                     ),
                 ),
-                  ElevatedButton(onPressed: () => router.go('/addService', extra: {'bike': bike, 'component': component}), child: const Text('Add Service'))
+                Container( 
+                  padding: const EdgeInsets.all(16),
+                  child: Center(
+              child: ElevatedButton(onPressed: () => router.go('/addService', extra: {'bike': bike, 'component': component}), child: const Text('Add Service')),
+            ),
+            ),
               ],
             ),
           ),
