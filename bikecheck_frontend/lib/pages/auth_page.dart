@@ -41,9 +41,15 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(onPressed: () async {
-          await _authAndRedirect();
-        }, child: const Text('Connect with Strava'))
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('BikeCheck', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+              ElevatedButton(onPressed: () async {
+                await _authAndRedirect();
+              }, child: Image.asset('assets/btn_strava_connect_with_orange.png')),
+            ],
+          ),
       ),
     );
   }

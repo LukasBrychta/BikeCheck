@@ -43,7 +43,8 @@ class _AddServicePageState extends State<AddServicePage> {
     final Bike? bike = extras!['bike'] as Bike?;
     final Component? component = extras['component'] as Component?;
     return Scaffold(
-      appBar: AppBar(title: Text('Add service to component ${component!.name}')),
+      appBar: AppBar(title: Text('Add service to component ${component!.name}', style:  const TextStyle(fontWeight: FontWeight.bold)),
+      leading: IconButton(onPressed: () => router.go('/services', extra: {'bike': bike, 'component': component}), icon: const Icon(Icons.arrow_back)),),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -57,7 +58,7 @@ class _AddServicePageState extends State<AddServicePage> {
             Center(
               child: ElevatedButton(
                 onPressed: () => _addService(component, bike!),
-                child: const Text('Add Component'),
+                child: const Text('Add Service'),
               ),
             ),
           ],

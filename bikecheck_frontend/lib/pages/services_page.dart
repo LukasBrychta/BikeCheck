@@ -26,7 +26,7 @@ class _ServicesPageState extends State<ServicesPage> {
     if (component == null && bike == null) {
       final extras = GoRouterState.of(context).extra as Map<String, dynamic>?;
       bike = extras!['bike'] as Bike?;
-      component = extras!['component'] as Component?;
+      component = extras['component'] as Component?;
       if(component != null && bike != null) {
         UserInfo.instance.user!.bikes![bike!.bikeId]!.components![component!.componentId]!.services = {};
         _fetchServices(component!.componentId!);
@@ -77,7 +77,8 @@ class _ServicesPageState extends State<ServicesPage> {
     if (isLoading) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('${component!.name} services'),
+          title: Text('${component!.name} services', style:  const TextStyle(fontWeight: FontWeight.bold)),
+          leading: IconButton(onPressed: () => router.go('/components', extra: bike), icon: const Icon(Icons.arrow_back)),
         ),
         body: const Center(
           child: CircularProgressIndicator(),
@@ -86,7 +87,7 @@ class _ServicesPageState extends State<ServicesPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('${component?.name} services')),
+      appBar: AppBar(title: Text('${component?.name} services', style:  const TextStyle(fontWeight: FontWeight.bold)), leading: IconButton(onPressed: () => router.go('/components', extra: bike), icon: const Icon(Icons.arrow_back)),),
       body: UserInfo.instance.user!.bikes![bike!.bikeId]!.components![component!.componentId]!.services!.isEmpty
           ? Center(
               child: Column(
@@ -117,7 +118,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       },
                     ),
                 ),
-                  ElevatedButton(onPressed: () => router.go('/addService', extra: bike), child: const Text('Add Service'))
+                  ElevatedButton(onPressed: () => router.go('/addService', extra: {'bike': bike, 'component': component}), child: const Text('Add Service'))
               ],
             ),
           ),

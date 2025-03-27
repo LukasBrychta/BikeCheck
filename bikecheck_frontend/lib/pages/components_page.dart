@@ -73,7 +73,8 @@ class _ComponentsPageState extends State<ComponentsPage> {
     if (isLoading) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('${bike!.name} components'),
+          title: Text('${bike!.name} components', style:  const TextStyle(fontWeight: FontWeight.bold)),
+          leading: IconButton(onPressed: () => router.go('/home'), icon: const Icon(Icons.arrow_back)),
         ),
         body: const Center(
           child: CircularProgressIndicator(),
@@ -82,7 +83,10 @@ class _ComponentsPageState extends State<ComponentsPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('${bike?.name} components')),
+      appBar: AppBar(
+        title: Text('${bike?.name} components', style:  const TextStyle(fontWeight: FontWeight.bold)),
+        leading: IconButton(onPressed: () => router.go('/home'), icon: const Icon(Icons.arrow_back)),
+      ),
       body: UserInfo.instance.user!.bikes![bike!.bikeId]!.components!.isEmpty
           ? Center(
               child: Column(
@@ -113,7 +117,13 @@ class _ComponentsPageState extends State<ComponentsPage> {
                       },
                     ),
                 ),
-                  ElevatedButton(onPressed: () => router.go('/addComponent', extra: bike), child: const Text('Add Component'))
+                ElevatedButton(onPressed: () => router.go('/addComponent', extra: bike), child: const Text('Add Component')),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Center(
+                    child: Image.asset('assets/api_logo_pwrdBy_strava_horiz_orange.png'),
+                  ),
+                )
               ],
             ),
           ),

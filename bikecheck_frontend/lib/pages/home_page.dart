@@ -46,6 +46,12 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
+            Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Center(
+                    child: Image.asset('assets/api_logo_pwrdBy_strava_horiz_orange.png'),
+                  ),
+                )
           ],
         ),
       ),

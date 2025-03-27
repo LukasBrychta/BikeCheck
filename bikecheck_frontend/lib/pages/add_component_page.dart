@@ -67,13 +67,13 @@ class _AddComponentPageState extends State<AddComponentPage> {
     final Bike? bike = GoRouterState.of(context).extra as Bike?;
     if (bike == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Add Component')),
+        appBar: AppBar(title: const Text('Add Component'), leading: IconButton(onPressed: () => router.go('/components', extra: bike), icon: const Icon(Icons.arrow_back)),),
         body: const Center(child: Text('No bike selected.')),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Add component to bike ${bike.name}')),
+      appBar: AppBar(title: Text('Add component to bike ${bike.name}', style:  const TextStyle(fontWeight: FontWeight.bold)), leading: IconButton(onPressed: () => router.go('/components', extra: bike), icon: const Icon(Icons.arrow_back))),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
